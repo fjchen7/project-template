@@ -11,9 +11,8 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v3.4.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  add-label-on-PR:
+  label-PR:
     runs-on: ubuntu-latest
-    if: github.event.action != 'edited'
     steps:
       - uses: release-drafter/release-drafter@v5
         env:
@@ -21,3 +20,13 @@ jobs:
         with:
           disable-releaser: true
           disable-autolabeler: false
+  run-test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action != 'edited' }}
+    steps:
+      - name: Set up environment
+        run: echo "Set up environment"
+      - name: Build
+        run: echo "Build your project"
+      - name: Test
+        run: echo "Run your test cases"
