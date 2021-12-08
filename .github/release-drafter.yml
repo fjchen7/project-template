@@ -1,0 +1,76 @@
+# label glob/regex example: https://github.com/ITProKyle/generic-template/blob/master/.github/release-drafter.yml
+autolabeler:
+  - label: 'chore'
+    files:
+      - '.github/**'
+    branch:
+      - '/chores{0,1}\/.*/'
+    title:
+      - '^chore.*'
+  - label: 'documentation'
+    files:
+      - 'README.md'
+    branch:
+      - '/docs{0,1}\/.*/'
+    title:
+      - '^doc.*'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+      - '/(bug|bugfix|fix|hotfix)\/.*/'
+    title:
+      - '^bug.*'
+  - label: 'enhancement'
+    branch:
+      - '/(feat|feature)\/.*/'
+      - '/enhancement\/.*/'
+    title:
+      - '^(feat|feature).*'
+      - '^enhancement.*'
+    body:
+      - '/JIRA-[0-9]{1,4}/'
+  - label: 'refactor'
+    branch:
+      - '/refactor\/.*/'
+    title:
+      - '^refactor.*'
+
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+  - title: '🧰 Maintenance'
+    labels:
+      - 'refactor'
+      - 'chore'
+  - title: '📝 Document'
+    labels:
+      - 'documentation'
+
+category-template: '## $TITLE'
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+sort-by: 'title'
+
+name-template: '$RESOLVED_VERSION'
+template: |
+  $CHANGES
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+
+exclude-labels:
+  - 'skip_changelog'
