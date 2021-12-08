@@ -1,0 +1,26 @@
+# Workflow on event `pull_request` runs under merged branch, which may bring security risk.
+# For this reason, write permission can't be granted on event `pull_request`, which will cause labeling PR fails.
+# Instead, use event `pull_request_target`, where workflow runs under target branch and can get write permission.
+# See https://github.com/actions/labeler/issues/12#issuecomment-670967607
+name: On PR target
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited]
+
+jobs:
+  lint-PR-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v3.4.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  label-PR:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          disable-releaser: true
+          disable-autolabeler: false
