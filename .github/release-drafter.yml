@@ -1,4 +1,5 @@
 # label glob/regex example: https://github.com/ITProKyle/generic-template/blob/master/.github/release-drafter.yml
+# branch and title follow javascript regex rule: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 autolabeler:
   - label: 'chore'
     files:
@@ -6,34 +7,34 @@ autolabeler:
     branch:
       - '/chores{0,1}\/.*/'
     title:
-      - '^chore.*'
+      - '/^chore.*/i'
   - label: 'documentation'
     files:
       - 'README.md'
     branch:
       - '/docs{0,1}\/.*/'
     title:
-      - '^doc.*'
+      - '/^doc.*/i'
   - label: 'bug'
     branch:
       - '/fix\/.+/'
       - '/(bug|bugfix|fix|hotfix)\/.*/'
     title:
-      - '^bug.*'
+      - '/^bug.*/i'
   - label: 'enhancement'
     branch:
       - '/(feat|feature)\/.*/'
       - '/enhancement\/.*/'
     title:
-      - '^(feat|feature).*'
-      - '^enhancement.*'
+      - '/^(feat|feature).*/i'
+      - '/^enhancement.*/i'
     body:
       - '/JIRA-[0-9]{1,4}/'
   - label: 'refactor'
     branch:
       - '/refactor\/.*/'
     title:
-      - '^refactor.*'
+      - '/^refactor.*/i'
 
 categories:
   - title: '🚀 Features'
